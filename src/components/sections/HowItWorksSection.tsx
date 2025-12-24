@@ -1,104 +1,103 @@
 import { motion } from 'framer-motion';
-import { HelpCircle, Cpu, CheckCircle } from 'lucide-react';
 
 const steps = [
   {
     number: '01',
-    icon: HelpCircle,
-    title: 'Ask a question',
-    description: 'Type any question about policies, tools, processes, or your role.',
+    title: 'Ask Naturally',
+    description: 'New hires type exactly as they think. "How do I set up my health insurance?" No keywords needed.',
   },
   {
     number: '02',
-    icon: Cpu,
-    title: 'AI understands context',
-    description: 'ONBOARD AI interprets your question using company-specific knowledge.',
+    title: 'Context Match',
+    description: 'The constellation engine analyzes thousands of internal docs to find the specific paragraph that applies.',
   },
   {
     number: '03',
-    icon: CheckCircle,
-    title: 'Get actionable answers',
-    description: 'Receive clear, accurate responses with links to relevant resources.',
+    title: 'Actionable Answer',
+    description: 'A clear summary is generated with direct links to the source material. Trust is maintained.',
   },
 ];
 
 export function HowItWorksSection() {
   return (
-    <section className="py-28 md:py-36 px-6 relative overflow-hidden">
-      {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[700px] bg-primary/5 rounded-full blur-[180px] pointer-events-none" />
+    <section id="how-it-works" className="py-32 md:py-40 px-6 relative overflow-hidden">
+      {/* Background constellation visual */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px]">
+          {/* Animated dots */}
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-primary/30 rounded-full"
+              style={{
+                left: `${20 + Math.random() * 60}%`,
+                top: `${20 + Math.random() * 60}%`,
+              }}
+              animate={{
+                opacity: [0.2, 0.6, 0.2],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
+          {/* Connection lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-10">
+            <line x1="30%" y1="30%" x2="70%" y2="40%" stroke="hsl(var(--primary))" strokeWidth="0.5" />
+            <line x1="70%" y1="40%" x2="50%" y2="70%" stroke="hsl(var(--primary))" strokeWidth="0.5" />
+            <line x1="50%" y1="70%" x2="30%" y2="30%" stroke="hsl(var(--primary))" strokeWidth="0.5" />
+          </svg>
+        </div>
+      </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="text-center mb-24"
         >
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-5">
-            <span className="text-shiny text-glow">How it</span>{' '}
-            <span className="text-gradient-primary">works</span>
+          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-foreground">
+            From question to clarity
           </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto font-medium">
-            Simple, fast, and designed for the modern workplace.
+          <p className="text-muted-foreground text-base">
+            Simplicity by design.
           </p>
         </motion.div>
 
-        {/* Steps */}
-        <div className="relative">
-          {/* Connection line */}
-          <motion.div 
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
-            className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/30 to-transparent origin-top hidden md:block" 
-          />
-
-          <div className="space-y-16 md:space-y-0">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.7, delay: index * 0.2, ease: 'easeOut' }}
-                className={`relative md:flex items-center gap-8 md:mb-20 ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}
+        {/* Steps - horizontal layout */}
+        <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.number}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.6, delay: index * 0.15, ease: 'easeOut' }}
+              className="text-center md:text-left"
+            >
+              {/* Step number */}
+              <motion.span 
+                className="inline-block text-5xl md:text-6xl font-serif text-primary/20 mb-4"
+                whileHover={{ color: 'hsl(var(--primary) / 0.4)', scale: 1.05 }}
+                transition={{ duration: 0.3 }}
               >
-                {/* Step content */}
-                <motion.div 
-                  className={`md:w-1/2 ${index % 2 === 0 ? 'md:text-right md:pr-16' : 'md:text-left md:pl-16'}`}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                >
-                  <div className={`flex items-center gap-4 mb-4 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
-                    <span className="text-6xl font-serif font-bold text-primary/20">{step.number}</span>
-                  </div>
-                  <h3 className="font-serif text-2xl md:text-3xl font-bold mb-4 text-shiny">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed text-lg font-medium">{step.description}</p>
-                </motion.div>
+                {step.number}
+              </motion.span>
 
-                {/* Center icon */}
-                <motion.div 
-                  className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center justify-center w-18 h-18 rounded-full bg-secondary border-2 border-primary/30"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.2 + 0.3, type: 'spring' }}
-                  whileHover={{ scale: 1.15, boxShadow: '0 0 30px hsl(var(--primary) / 0.4)' }}
-                >
-                  <step.icon className="w-8 h-8 text-primary" />
-                </motion.div>
-
-                {/* Spacer for alternating layout */}
-                <div className="md:w-1/2" />
-              </motion.div>
-            ))}
-          </div>
+              <h3 className="font-sans text-xl font-semibold mb-3 text-foreground">
+                {step.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {step.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
