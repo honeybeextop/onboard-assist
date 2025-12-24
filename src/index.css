@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,14 +10,14 @@
     
     /* Background - Deep charcoal gradient feel */
     --background: 220 20% 8%;
-    --foreground: 210 20% 95%;
+    --foreground: 0 0% 98%;
 
     /* Cards - Slightly lighter charcoal with glass effect */
     --card: 220 18% 12%;
-    --card-foreground: 210 20% 95%;
+    --card-foreground: 0 0% 98%;
 
     --popover: 220 18% 12%;
-    --popover-foreground: 210 20% 95%;
+    --popover-foreground: 0 0% 98%;
 
     /* Primary - Sky Blue (soft, enterprise-friendly) */
     --primary: 200 85% 60%;
@@ -27,11 +27,11 @@
 
     /* Secondary - Subtle surfaces */
     --secondary: 220 15% 16%;
-    --secondary-foreground: 210 20% 90%;
+    --secondary-foreground: 0 0% 95%;
 
     /* Muted - For subdued elements */
     --muted: 220 15% 18%;
-    --muted-foreground: 210 15% 55%;
+    --muted-foreground: 210 15% 60%;
 
     /* Accent - Subtle Yellow (pulses, highlights, cursor) */
     --accent: 45 90% 60%;
@@ -39,7 +39,7 @@
     --accent-glow: 45 95% 70%;
 
     --destructive: 0 70% 50%;
-    --destructive-foreground: 210 20% 95%;
+    --destructive-foreground: 0 0% 98%;
 
     --border: 220 15% 20%;
     --input: 220 15% 20%;
@@ -51,14 +51,16 @@
     --gradient-hero: linear-gradient(180deg, hsl(220 20% 6%) 0%, hsl(220 18% 10%) 50%, hsl(215 20% 12%) 100%);
     --gradient-card: linear-gradient(135deg, hsl(220 18% 14% / 0.8) 0%, hsl(220 15% 10% / 0.6) 100%);
     --gradient-glow: radial-gradient(ellipse at center, hsl(200 85% 60% / 0.15) 0%, transparent 70%);
+    --gradient-text: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(200 20% 90%) 50%, hsl(0 0% 100%) 100%);
     
-    --shadow-glow: 0 0 60px hsl(200 85% 60% / 0.2);
+    --shadow-glow: 0 0 60px hsl(200 85% 60% / 0.25);
     --shadow-card: 0 8px 32px hsl(220 20% 4% / 0.4);
     --shadow-elevated: 0 20px 60px hsl(220 20% 4% / 0.5);
+    --shadow-text: 0 0 40px hsl(200 85% 70% / 0.3);
 
     /* Glass effect */
     --glass-bg: hsl(220 18% 14% / 0.6);
-    --glass-border: hsl(210 20% 95% / 0.08);
+    --glass-border: hsl(0 0% 100% / 0.08);
     
     /* Animation timings */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -66,11 +68,11 @@
 
     /* Sidebar tokens */
     --sidebar-background: 220 18% 10%;
-    --sidebar-foreground: 210 20% 90%;
+    --sidebar-foreground: 0 0% 95%;
     --sidebar-primary: 200 85% 60%;
     --sidebar-primary-foreground: 220 20% 8%;
     --sidebar-accent: 220 15% 16%;
-    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 220 15% 18%;
     --sidebar-ring: 200 85% 60%;
   }
@@ -87,14 +89,15 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     background: var(--gradient-hero);
     min-height: 100vh;
   }
 
   /* Typography */
   h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
   }
 
   /* Custom scrollbar */
@@ -121,13 +124,22 @@
   .glass {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
   }
 
   .glass-strong {
-    background: hsl(220 18% 14% / 0.8);
+    background: hsl(220 18% 14% / 0.85);
     backdrop-filter: blur(30px);
-    border: 1px solid hsl(210 20% 95% / 0.1);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid hsl(0 0% 100% / 0.1);
+  }
+
+  .glass-navbar {
+    background: hsl(220 20% 8% / 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid hsl(0 0% 100% / 0.05);
   }
 
   /* Glow effects */
@@ -139,7 +151,7 @@
     box-shadow: 0 0 40px hsl(var(--accent) / 0.3);
   }
 
-  /* Text gradients */
+  /* Text effects */
   .text-gradient-primary {
     background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
     -webkit-background-clip: text;
@@ -152,6 +164,18 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .text-shiny {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: var(--shadow-text);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px hsl(0 0% 100% / 0.3), 0 0 40px hsl(var(--primary) / 0.2);
   }
 
   /* Animations */
@@ -168,6 +192,36 @@
   @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+    50% { box-shadow: 0 0 40px hsl(var(--primary) / 0.5); }
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slide-in-left {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slide-in-right {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes scale-up {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   .animate-float {
@@ -188,4 +242,27 @@
     background-size: 200% 100%;
     animation: shimmer 3s infinite;
   }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out forwards;
+  }
+
+  .animate-scale-up {
+    animation: scale-up 0.5s ease-out forwards;
+  }
+
+  .animate-rotate-slow {
+    animation: rotate-slow 20s linear infinite;
+  }
+
+  /* Stagger delays */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
 }

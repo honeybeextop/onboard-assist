@@ -24,83 +24,69 @@ const capabilities = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut" as const,
-    },
-  },
-};
-
 export function CapabilitiesSection() {
   return (
-    <section className="py-24 md:py-32 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-28 md:py-36 px-6 relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="text-center mb-20"
         >
-          <h2 className="font-serif text-3xl md:text-5xl font-medium mb-4">
-            Everything you need,{' '}
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-5">
+            <span className="text-shiny text-glow">Everything you need,</span>{' '}
             <span className="text-gradient-primary">right here.</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium">
             A living onboarding guide that grows with your organization.
           </p>
         </motion.div>
 
         {/* Capability cards */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          className="grid md:grid-cols-2 gap-6"
-        >
+        <div className="grid md:grid-cols-2 gap-6">
           {capabilities.map((capability, index) => (
             <motion.div
               key={capability.title}
-              variants={itemVariants}
-              className="group relative p-8 rounded-2xl glass-strong hover:border-primary/30 transition-all duration-500"
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.6, delay: index * 0.1, ease: 'easeOut' }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="group relative p-8 rounded-2xl glass-strong hover:border-primary/30 transition-all duration-500 cursor-pointer"
             >
               {/* Glow effect on hover */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Animated border glow */}
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
+                   style={{ boxShadow: '0 0 30px hsl(var(--primary) / 0.2)' }} />
               
               <div className="relative z-10">
                 {/* Icon */}
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-5 group-hover:bg-primary/20 transition-colors duration-300">
-                  <capability.icon className="w-6 h-6 text-primary" />
-                </div>
+                <motion.div 
+                  className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 mb-6 group-hover:bg-primary/20 transition-all duration-300"
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                >
+                  <capability.icon className="w-7 h-7 text-primary" />
+                </motion.div>
 
                 {/* Content */}
-                <h3 className="font-serif text-xl font-medium mb-3 group-hover:text-primary transition-colors duration-300">
+                <h3 className="font-serif text-2xl font-bold mb-3 text-shiny group-hover:text-gradient-primary transition-all duration-300">
                   {capability.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed font-medium">
                   {capability.description}
                 </p>
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
